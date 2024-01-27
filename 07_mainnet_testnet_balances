@@ -1,0 +1,15 @@
+const { ethers } = require("ethers");
+const providerETH = new ethers.JsonRpcProvider(`https://mainnet.infura.io/v3/8b9750710d56460d940aeff47967c4ba`)
+const providerSepolia = new ethers.JsonRpcProvider('https://sepolia.infura.io/v3/8b9750710d56460d940aeff47967c4ba')
+
+const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' //or 'vitalik.eth'
+
+const main = async () => {
+    
+      const balanceETH = await providerETH.getBalance(address) //or 'vitalik.eth'
+      const balanceSepolia = await providerSepolia.getBalance(address)
+      console.log(`\nETH Balance of ${address} --> ${ethers.formatEther(balanceETH)} ETH\n`)
+      console.log(`\nSepoliaETH Balance of ${address} --> ${ethers.formatEther(balanceSepolia)} ETH\n`)
+
+        }
+main()
