@@ -12,3 +12,11 @@ const main = async () => {
 };
 
 main();
+
+// to read blocks
+
+const main = async () => {
+  const blockNumber = await provider1.getBlockNumber();
+
+  console.log(blockNumber);
+};
