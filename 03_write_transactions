@@ -42,3 +42,13 @@ const main = async() => {
 
 main()
 
+
+// this allows you to generate a random wallet with a private key and mnemonics 
+
+const { ethers } = require("ethers");
+
+const provider = new ethers.JsonRpcProvider(`https://sepolia.infura.io/v3/8b9750710d56460d940aeff47967c4ba`)
+
+const randomWallet = ethers.Wallet.createRandom();
+console.log(randomWallet);
+
