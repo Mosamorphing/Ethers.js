@@ -66,7 +66,8 @@ const wallet3 = ethers.Wallet.fromMnemonic(mnemonic.phrase)
 
 ### Other methods: Creating a wallet object from a JSON file
 
-The above three methods can meet most requirements. However, we can also create a wallet instance by decrypting a JSON wallet file using `ethers.Wallet.fromEncryptedJson`. The JSON file is usually the `keystore` file from wallets like Geth and Parity, which would be familiar to anyone who has set up an Ethereum node using Geth.
+The above three methods can meet most requirements. However, we can also create a wallet instance by decrypting a JSON wallet file using `ethers.Wallet.fromEncryptedJson`. 
+The JSON file is usually the `keystore` file from wallets like Geth and Parity, which would be familiar to anyone who has set up an Ethereum node using Geth.
 
 ## Sending ETH
 
