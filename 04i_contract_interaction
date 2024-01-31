@@ -20,34 +20,39 @@ const main = async () => {
     const address = await wallet.getAddress();
     console.log(`Read WETH balance`);
     
-    // Corrected function name from BalanceOf to balanceOf
     const balanceWETH = await contract.balanceOf(address);
     console.log(`WETH balance before deposit: ${ethers.formatEther(balanceWETH)}`);
 
-// SUCCESFULLY CONSOLELOGGED IN TERMINAL HERE
 
 const balanceETH = await provider.getBalance(wallet)
+
+if(ethers.formatEther(balanceETH) > 0.0015){
+
 console.log(`Balance of Eth: ${ethers.formatEther(balanceETH)}`);
 
-// calling deposit function
 console.log("Call the deposit() function to deposit 0.001 ETH")
 const tx = await contract.deposit({value: ethers.parseEther('0.001')})
 await tx.wait()
 console.log(tx)
 
-// all code successful till here!
-
 const balanceWETH_deposit = await contract.balanceOf(address)
 console.log(`WETH balance after deposit: ${ethers.formatEther(balanceWETH_deposit)}`)
 
-// still working!
-// sth for vitalik
 console.log("Call the transfer() function to transfer 0.001 WETH to Vitalik")
 const tx2 = await contract.transfer("vitalik.eth", ethers.parseEther("0.001"))
 await tx2.wait()
 const balanceWETH_transfer = await contract.balanceOf(address)
 console.log(`WETH balance after transfer: ${ethers.formatEther(balanceWETH_transfer)}`)
+
+}else{
+    // If ETH is not enough
+    console.log("ETH is not enough, go to the faucet to get some Goerli ETH")
+    console.log("1. Chainlink faucet: https://faucets.chain.link/goerli")
+    console.log("2. Paradigm faucet: https://faucet.paradigm.xyz/")
 }
+
+}
+
 
 main();
 
