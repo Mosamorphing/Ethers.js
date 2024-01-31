@@ -1,0 +1,53 @@
+const { ethers } = require("ethers");
+
+const provider = new ethers.JsonRpcProvider(`https://sepolia.infura.io/v3/8b9750710d56460d940aeff47967c4ba`);
+
+const privateKey = 'cd82a7d0d6e528322e8c26f9ccbc18767543786d073c48ef38a753f29b1e8f39';
+const wallet = new ethers.Wallet(privateKey, provider);
+
+const abiWETH = [
+    "function balanceOf(address) public view returns(uint)",
+    "function deposit() public payable",
+    "function transfer(address, uint) public returns (bool)",
+    "function withdraw(uint) public",
+];
+
+const addressWETH = "0xb16F35c0Ae2912430DAc15764477E179D9B9EbEa"; // weth contract address
+
+const contract = new ethers.Contract(addressWETH, abiWETH, wallet);
+
+const main = async () => {
+    const address = await wallet.getAddress();
+    console.log(`Read WETH balance`);
+    
+    // Corrected function name from BalanceOf to balanceOf
+    const balanceWETH = await contract.balanceOf(address);
+    console.log(`WETH balance before deposit: ${ethers.formatEther(balanceWETH)}`);
+
+// SUCCESFULLY CONSOLELOGGED IN TERMINAL HERE
+
+const balanceETH = await provider.getBalance(wallet)
+console.log(`Balance of Eth: ${ethers.formatEther(balanceETH)}`);
+
+// calling deposit function
+console.log("Call the deposit() function to deposit 0.001 ETH")
+const tx = await contract.deposit({value: ethers.parseEther('0.001')})
+await tx.wait()
+console.log(tx)
+
+// all code successful till here!
+
+const balanceWETH_deposit = await contract.balanceOf(address)
+console.log(`WETH balance after deposit: ${ethers.formatEther(balanceWETH_deposit)}`)
+
+// still working!
+// sth for vitalik
+console.log("Call the transfer() function to transfer 0.001 WETH to Vitalik")
+const tx2 = await contract.transfer("vitalik.eth", ethers.parseEther("0.001"))
+await tx2.wait()
+const balanceWETH_transfer = await contract.balanceOf(address)
+console.log(`WETH balance after transfer: ${ethers.formatEther(balanceWETH_transfer)}`)
+}
+
+main();
+
